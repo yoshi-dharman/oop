@@ -1,21 +1,19 @@
-class Enemy{
-    constructor(name, speed, healthPoint, attackPoint, isDead){
-        this.name = name;
-        this.speed = speed;
-        this.healthPoint = healthPoint;
-        this.attackPoint = attackPoint;
-        this.isDead = isDead;
+function Enemy(name, speed, healthPoint, attackPoint, isDead){
+    this.name = name;
+    this.speed = speed;
+    this.healthPoint = healthPoint;
+    this.attackPoint = attackPoint;
+    this.isDead = isDead;
+
+    this.attack = function(){
+        return "Attack";
     }
 
-    attack(){
-        console.log("Attack!");
+    this.confused = function () {
+        return "Confused";
     }
 
-    confused(){
-        console.log("Confused");
-    }
-    
-    attacked(damage){
+    this.attacked = function (damage) {
         this.healthPoint -= damage;
         console.log(`${this.name} attacked, hp - ${damage}`);
         console.log(`${this.name} hp remain = ${this.healthPoint}`);
@@ -23,31 +21,29 @@ class Enemy{
             this.isDead = true;
             console.log(`${this.name} is Dead`);
         }
-        
     }
 }
 
-class Pocong extends Enemy{
-    constructor(name, speed, healthPoint, attackPoint, isDead){
-        super(name, speed, healthPoint, attackPoint, isDead);
-    }
+function Pocong(name, speed, healthPoint, attackPoint, isDead) {
+    Enemy.call(this, name, speed, healthPoint, attackPoint, isDead);
 
-    jump(){
+    this.jump = function(){
         console.log(`${this.name} Jump!`);
     }
 
-    supperJump(){
+    this.supperJump = function(){
         console.log(`${this.name} Supper Jump!`);
     }
 
-    attack(){
+    this.attack = function(){
         console.log(`${this.name} Attack!`);
     }
-
 }
 
-class Zombie extends Enemy{
-    walk(){
+function Zombie(name, speed, healthPoint, attackPoint, isDead){
+    Enemy.call(this, name, speed, healthPoint, attackPoint, isDead);
+
+    this.walk = function () {
         if(this.speed == 20){
             this.speed -= 10;
             console.log(`${this.name} turn to walk from running`);
@@ -55,7 +51,7 @@ class Zombie extends Enemy{
         console.log(`${this.name} Walk!`);
     }
 
-    running(){
+    this.running = function () {
         if(this.speed == 20){
             console.log(`${this.name} already at top speed`);
         }
@@ -65,11 +61,11 @@ class Zombie extends Enemy{
         }
     }
 
-    attack(){
+    this.attack = function(){
         console.log(`${this.name} Zombie Horde with ${this.attackPoint} attack point!`);
     }
 
-    infected(){
+    this.infected = function(){
         console.log(`${this.name} Palague!!`);
     }
 }
@@ -83,4 +79,3 @@ popocong.supperJump();
 zombie_man.attacked(30);
 zombie_man.attacked(15);
 zombie_man.attacked(100);
-
